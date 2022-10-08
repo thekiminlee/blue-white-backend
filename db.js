@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 
 // DB initialization
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const adapters = new JSONFileSync('../data/users.json');
+const adapters = new JSONFileSync('./data/users.json');
 
 const db = new LowSync(adapters);
 
