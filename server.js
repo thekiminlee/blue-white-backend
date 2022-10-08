@@ -1,8 +1,10 @@
 import express from 'express';
 import routes from './routes.js';
+import cors from 'cors';
 
 // Server initialization
 const app = express();
+app.use(cors())
 
 routes(app);
 
