@@ -15,8 +15,8 @@ apiRouter.post(authRoute + 'login', (req, res) => {
 
     var error = function(status, message) {
         return res.status(status).send({
-            'authenticationSuccess': false,
-            'message': message
+            authenticationSuccess: false,
+            message: message
         });
     };
 
@@ -25,7 +25,7 @@ apiRouter.post(authRoute + 'login', (req, res) => {
     } else {
         if (authenticateCredential(password, user.password, user.salt)) {
             res.status(200).send({
-                'authenticationSuccess': true,
+                authenticationSuccess: true,
                 id: user._id,
                 token: createToken(),
                 tokenExpiration: Date.now() + (30*60000) // 30 minutes from now
@@ -40,11 +40,11 @@ apiRouter.post(authRoute + 'register', (req, res) => {
     const newUser = req.body;
     if (isExistingUser(newUser.email)) {
         return res.status(200).send({
-            'registrationSuccess': false,
-            'message': 'User already exists'
+            registrationSuccess: false,
+            message: 'User already exists'
         });
     }
-    
+
     newUser._id = generateUuid();
     newUser.guid = generateGuid();
 
@@ -58,8 +58,10 @@ apiRouter.post(authRoute + 'register', (req, res) => {
     db.data.users.push(newUser);
     db.write();
     return res.status(200).send({
-        'registrationSuccess': true,
-        'user': newUser
+        registrationSuccess: true,
+        token: createToken(),
+        tokenExpiration: Date.now() + (30*60000),
+        user: newUser
     });
 });
 
