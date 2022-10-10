@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
-import db from './db';
+import db from './db.js';
 
 export function createToken() {
     return Math.random().toString(36).slice(2);

@@ -26,7 +26,7 @@ apiRouter.post(authRoute + 'login', (req, res) => {
         if (authenticateCredential(password, user.password, user.salt)) {
             res.status(200).send({
                 'authenticationSuccess': true,
-                id: generateUuid(),
+                id: user._id,
                 token: createToken(),
                 tokenExpiration: Date.now() + (30*60000) // 30 minutes from now
             });
@@ -38,7 +38,7 @@ apiRouter.post(authRoute + 'login', (req, res) => {
 
 apiRouter.post(authRoute + 'register', (req, res) => {
     const newUser = req.body;
-    newUser.id = generateUuid();
+    newUser._id = generateUuid();
 
     // hash password
     let salt = generateSalt(10);
