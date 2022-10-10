@@ -1,4 +1,6 @@
 import crypto from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
+import db from './db';
 
 export function createToken() {
     return Math.random().toString(36).slice(2);
@@ -18,6 +20,15 @@ export function encrypt(hashingValue, salt) {
 
 export function generateSalt(rounds) {
     return crypto.randomBytes(Math.ceil(rounds / 2)).toString('hex').slice(0, rounds);
+}
+
+export function generateUuid() {
+    const userId = uuidv4();
+    const user = db.data.users.find(_user => _user.id == userId)
+    while(user != undefined) {
+        userId = uuidv4();
+    }
+    return userId
 }
 
 

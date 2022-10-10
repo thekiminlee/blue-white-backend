@@ -1,6 +1,6 @@
 import express from 'express';
 import db from './db.js';
-import { authenticateCredential, createToken, encrypt, generateSalt } from './util.js';
+import { authenticateCredential, createToken, encrypt, generateSalt, generateUuid } from './util.js';
 
 const apiRouter = express.Router();
 const route = '/api/'
@@ -25,6 +25,8 @@ apiRouter.post(authRoute + 'login', (req, res) => {
     } else {
         if (authenticateCredential(password, user.password, user.salt)) {
             res.status(200).send({
+                'authenticationSuccess': true,
+                id: generateUuid(),
                 token: createToken(),
                 tokenExpiration: Date.now() + (30*60000) // 30 minutes from now
             });
@@ -36,6 +38,7 @@ apiRouter.post(authRoute + 'login', (req, res) => {
 
 apiRouter.post(authRoute + 'register', (req, res) => {
     const newUser = req.body;
+    newUser.id = generateUuid();
 
     // hash password
     let salt = generateSalt(10);

@@ -1,5 +1,5 @@
 import { LowSync, JSONFileSync } from 'lowdb';
-import { dirname, join } from 'path';
+import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 // DB initialization
