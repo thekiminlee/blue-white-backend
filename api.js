@@ -1,6 +1,6 @@
 import express from 'express';
 import db from './db.js';
-import { authenticateCredential, createToken, encrypt, generateGuid, generateSalt, generateUuid } from './util.js';
+import { authenticateCredential, createToken, encrypt, generateGuid, generateSalt, generateUuid, isExistingUser } from './util.js';
 
 const apiRouter = express.Router();
 const route = '/api/'
@@ -38,6 +38,13 @@ apiRouter.post(authRoute + 'login', (req, res) => {
 
 apiRouter.post(authRoute + 'register', (req, res) => {
     const newUser = req.body;
+    if (isExistingUser(newUser.email)) {
+        return res.status(200).send({
+            'registrationSuccess': false,
+            'message': 'User already exists'
+        });
+    }
+    
     newUser._id = generateUuid();
     newUser.guid = generateGuid();
 
@@ -50,7 +57,8 @@ apiRouter.post(authRoute + 'register', (req, res) => {
     
     db.data.users.push(newUser);
     db.write();
-    res.status(200).send({
+    return res.status(200).send({
+        'registrationSuccess': true,
         'user': newUser
     });
 });

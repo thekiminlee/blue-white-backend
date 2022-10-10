@@ -40,4 +40,8 @@ export function generateGuid() {
     return guid;
 }
 
+export function isExistingUser(email) {
+    const user = db.data.users.find(_user => _user.email == email);
+    return ![null, undefined].includes(user);
+}
 
