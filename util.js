@@ -15,7 +15,7 @@ export function encrypt(hashingValue, salt) {
     let hash = crypto.createHmac('sha1', salt)
     hash.update(hashingValue);
     let hashedValue = hash.digest('hex');
-    return hashedValue
+    return hashedValue;
 }
 
 export function generateSalt(rounds) {
@@ -24,11 +24,20 @@ export function generateSalt(rounds) {
 
 export function generateUuid() {
     const userId = uuidv4();
-    const user = db.data.users.find(_user => _user.id == userId)
+    const user = db.data.users.find(_user => _user._id == userId)
     while(user != undefined) {
         userId = uuidv4();
     }
-    return userId
+    return userId;
+}
+
+export function generateGuid() {
+    const guid = uuidv4();
+    const user = db.data.users.find(_user => _user.guid == guid)
+    while(user != undefined) {
+        guid = uuidv4();
+    }
+    return guid;
 }
 
 

@@ -37,6 +37,25 @@
       "phone": "+1 (936) 451-3590",
       "address": "121 National Drive, Cotopaxi, Michigan, 8240",
       "salt": "28c085e3f6"
+    },
+    {
+      "_id": "02fc00b4-4350-48aa-bb5f-462c2f238db3",
+      "guid": "eab0324c-75ef-49a1-9c49-be2d68f50b96",
+      "isActive": false,
+      "balance": "$23,585.69",
+      "picture": "http://placehold.it/32x32",
+      "age": 30,
+      "eyeColor": "hazel",
+      "name": {
+        "first": "Kimin",
+        "last": "Lee"
+      },
+      "company": "IDK",
+      "email": "thekiminlee@gmail.com",
+      "password": "f51a0aedb7159cb9b35f77bbd6146c7c0a71fbeb",
+      "phone": "+1 (936) 451-3590",
+      "address": "121 National Drive, Cotopaxi, Michigan, 8240",
+      "salt": "716955feed"
     }
   ]
 }
